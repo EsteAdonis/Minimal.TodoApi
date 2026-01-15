@@ -39,6 +39,7 @@ todoItems.MapDelete("/{id}", DeleteTodo);
 
 app.Run();
 
+
 static async Task<IResult> GetAllTodos(TodoDb db)
 {
     return TypedResults.Ok(await db.Todos.Select(x => new TodoItemDTO(x)).ToArrayAsync());
