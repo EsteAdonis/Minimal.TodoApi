@@ -35,31 +35,31 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+  # deploy:
+  #   runs-on: windows-latest
+  #   needs: build
+  #   permissions:
+  #     id-token: write #This is required for requesting the JWT
+  #     contents: read #This is required for actions/checkout
 
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: .net-app
+  #   steps:
+  #     - name: Download artifact from build job
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: .net-app
       
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_97CEF6F38EC04E3C9D6654A0C7F6C061 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_1EDA0779A4874A45B1824B0C7F502B64 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CF1E69A606944E19A5B55B6C92C42DFD }}
+  #     - name: Login to Azure
+  #       uses: azure/login@v2
+  #       with:
+  #         client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_97CEF6F38EC04E3C9D6654A0C7F6C061 }}
+  #         tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_1EDA0779A4874A45B1824B0C7F502B64 }}
+  #         subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CF1E69A606944E19A5B55B6C92C42DFD }}
 
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: 'minimal-todoapi'
-          slot-name: 'Production'
-          package: .
+  #     - name: Deploy to Azure Web App
+  #       id: deploy-to-webapp
+  #       uses: azure/webapps-deploy@v3
+  #       with:
+  #         app-name: 'minimal-todoapi'
+  #         slot-name: 'Production'
+  #         package: .
           
