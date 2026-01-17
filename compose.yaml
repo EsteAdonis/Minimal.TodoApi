@@ -1,0 +1,23 @@
+
+services:
+  minimaltodoapi:
+    image: minimaltodoapi
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080"
+
+
+# Orchestration: If you later add a database (like SQL Server or Postgres) or a cache (Redis), you can define them as separate services in this same file, and Docker Compose will network them together automatically.
+# Consistency: It ensures everyone on your team runs the application with the exact same settings (ports, volumes, environment variables).
+# How to use it
+# To use the file, you use the docker compose CLI commands in your terminal while inside the d:\MyLab\.Net\Minimal.TodoApi\ directory.
+
+# >docker compose up
+
+# Add -d to run in "detached" mode (background): docker compose up -d
+# Add --build to force a rebuild of the image if you changed code: docker compose up --build
+
+## stop the app
+# > docker compose down

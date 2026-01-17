@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minimal-todoapi-deployment
+  labels:
+    app: minimal-todoapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minimal-todoapi
+  template:
+    metadata:
+      labels:
+        app: minimal-todoapi
+    spec:
+      containers:
+      - name: minimal-todoapi
+        # Replace 'minimal-todoapi:latest' with your actual registry image (e.g., myregistry.azurecr.io/minimal-todoapi:v1)
+        image: esteadonis/minimal-todoapi:v1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Production"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minimal-todoapi-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: minimal-todoapi
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
